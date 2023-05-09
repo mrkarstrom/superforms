@@ -5,7 +5,14 @@
 
 	export let data: PageData
 
-	const { form, errors } = superForm(data.form)
+	const { form, errors, enhance, constraints } = superForm(data.form, {
+		validators: {
+			firstName: (firstName) => (firstName.length < 1 ? 'Måste vara längre än 1' : null),
+			lastName: (lastName) => (lastName.length < 1 ? 'Måste vara längre än 1' : null),
+			email: (email) => (email.length < 1 ? 'Måste vara längre än 1' : null),
+			company: (company) => (company.length < 1 ? 'Måste vara längre än 1' : null)
+		}
+	})
 </script>
 
 <SuperDebug data={$form} />
@@ -14,7 +21,7 @@
 	<header>
 		<h1>Ny kontakt</h1>
 	</header>
-	<form method="POST">
+	<form method="POST" use:enhance>
 		<label for="firstName">Förnamn</label>
 		<input type="text" name="firstName" id="firstName" bind:value={$form.firstName} />
 		{#if $errors.firstName}
