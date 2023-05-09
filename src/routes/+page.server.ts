@@ -15,19 +15,34 @@ export const load = async (event) => {
 	return {
 		form
 	}
-}
+};
+
 
 export const actions = {
-	default: async (event) => {
+	default: async(event) => {
 		const form = await superValidate(event, newContactSchema)
-		console.log(form)
-
-		if (!form.valid) {
-			return fail(400, {
-				form
-			})
-		}
-
-		return { form }
+		console.log(form);
 	}
-}
+};
+
+// export const load = async (event) => {
+// 	const form = await superValidate(event, newContactSchema)
+// 	return {
+// 		form
+// 	}
+// }
+
+// export const actions = {
+// 	default: async (event) => {
+// 		const form = await superValidate(event, newContactSchema)
+// 		console.log(form)
+
+// 		if (!form.valid) {
+// 			return fail(400, {
+// 				form
+// 			})
+// 		}
+
+// 		return { form }
+// 	}
+// }

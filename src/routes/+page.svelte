@@ -26,6 +26,7 @@
 
 		<label for="company">Företag</label>
 		<input type="text" name="company" id="company" bind:value={$form.company} />
+		<button type="submit">Skicka</button>
 	</form>
 </article>
 
