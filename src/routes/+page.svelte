@@ -1,17 +1,20 @@
 <script lang="ts">
+	import { z } from 'zod'
 	import { superForm } from 'sveltekit-superforms/client'
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte'
 	import type { PageData } from './$types'
 
 	export let data: PageData
 
-	const { form, errors, enhance, constraints } = superForm(data.form, {
-		validators: {
-			firstName: (firstName) => (firstName.length < 1 ? 'Måste vara längre än 1' : null),
-			lastName: (lastName) => (lastName.length < 1 ? 'Måste vara längre än 1' : null),
-			email: (email) => (email.length < 1 ? 'Måste vara längre än 1' : null),
-			company: (company) => (company.length < 1 ? 'Måste vara längre än 1' : null)
-		}
+	const newContactSchema = z.object({
+		firstName: z.string().min(1),
+		lastName: z.string().min(1),
+		email: z.string().email(),
+		company: z.string().min(1)
+	})
+
+	const { form, errors, enhance } = superForm(data.form, {
+		validators: newContactSchema
 	})
 </script>
 
